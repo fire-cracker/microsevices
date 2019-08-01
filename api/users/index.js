@@ -1,9 +1,10 @@
 import express from 'express';
-import session from 'express-session';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import { createLogger, format, transports } from 'winston';
+
+import usersRouter from './routes/usersRouter';
 
 const logger = createLogger({
   level: 'debug',
@@ -13,7 +14,7 @@ const logger = createLogger({
 
 dotenv.config();
 
-const port = process.env.PORT || process.env.LOCAL_PORT;
+const port = process.env.PORT || process.env.USER_SERVICE_PORT;
 // Create global app object
 const app = express();
 
@@ -25,29 +26,12 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(
-  session({
-    secret: 'microserviceproject',
-    cookie: { maxAge: 60000 },
-    resave: false,
-    saveUninitialized: false
-  })
-);
 
 app.use(express.static(`${__dirname}/public`));
-
-app.get('/', (req, res) => res.status(200).send({
-  status: 'connection successful',
-  message: 'Welcome to my Simple Stateless Micorservice Project!'
-}));
-
-app.get('*', (req, res) => res.status(200).send({
-  status: 'fail',
-  message: 'Route not found',
-}));
+app.use('/users', usersRouter);
 
 app.listen(port, () => {
-  logger.debug(`Server running on port ${chalk.blue(port)}`);
+  logger.debug(`Users service running on port ${chalk.blue(port)}`);
 });
 
 export default app;
