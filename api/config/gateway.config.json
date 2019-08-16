@@ -13,8 +13,13 @@
     },
     "users": {
       "host": "localhost",
-      "paths": "/users/login"
+      "paths": "/users/*"
+    },
+    "miscellaneous": {
+      "host": "localhost",
+      "paths": "/*"
     }
+
 },
   "serviceEndpoints": {
     "httpbin": {
@@ -22,6 +27,9 @@
     },
     "usersServer": {
       "url": "http://localhost:8000/"
+    },
+    "miscellaneousServer": {
+      "url": "http://localhost:5000/"
     }
   },
   "policies": [
@@ -69,6 +77,24 @@
           ]
         }
       ]
+    },
+    {
+      "name": "default-2",
+      "apiEndpoints": [
+        "miscellaneous"
+      ],
+      "policies": [
+        {
+          "proxy": [
+            {
+              "action": {
+                "serviceEndpoint": "miscellaneousServer"
+              }
+            }
+          ]
+        }
+      ]
     }
+
 ]
 }
