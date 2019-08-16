@@ -7,9 +7,9 @@
     "node": "12.6.0"
   },
   "scripts": {
-    "test": "NODE_ENV=test PORT=3001 nyc mocha --require @babel/register tests/*.js --exit",
+    "test": "NODE_ENV=test nyc mocha --require @babel/register tests/*.js --exit",
     "lint": "eslint",
-    "build": "rm -rf dist/ && babel server/ -d dist/server/ && babel index.js -d dist/",
+    "build": "rm -rf dist/ && babel api/ -d dist/api/ && babel server.js -d dist/",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node server.js --preset-env",
     "start": "export NODE_ENV=production && node dist",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -28,6 +28,7 @@
     "express": "^4.16.4",
     "express-gateway": "^1.16.7",
     "express-validator": "^6.1.1",
+    "fast-json-patch": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^2.3.10",
     "morgan": "^1.9.1",
