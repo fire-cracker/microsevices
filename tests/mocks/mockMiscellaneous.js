@@ -7,3 +7,11 @@ export const jsonPatchObject = {
   password: 'oyedejipeace',
   email: ''
 };
+
+export const imageUrl = {
+  image_url: 'http://www.w3schools.com/html/img_girl.jpg'
+};
+
+export const invalidImageUrl = {
+  image_url: 'http://www.w3schoolssss.com/html/img_girl.jpg'
+};
