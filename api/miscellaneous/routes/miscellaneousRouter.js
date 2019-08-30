@@ -1,10 +1,10 @@
 import express from 'express';
 
 import {
-  patchObject
+  patchObject, createThumbnail
 } from '../controllers/miscellaneousController';
 import {
-  miscellaneousValidator,
+  jsonpatchValidator, thumbnailValidator
 } from '../middlewares/validation/miscellaneousValidation';
 import verifyUser from '../../authentication/authenticate';
 
@@ -13,8 +13,13 @@ const miscellaneousRouter = express.Router();
 
 miscellaneousRouter.patch('/jsonpatch',
   verifyUser,
-  miscellaneousValidator,
+  jsonpatchValidator,
   patchObject);
+
+miscellaneousRouter.post('/thumbnail',
+  verifyUser,
+  thumbnailValidator,
+  createThumbnail);
 
 
 export default miscellaneousRouter;
